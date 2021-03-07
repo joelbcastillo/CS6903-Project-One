@@ -1,13 +1,15 @@
 """Console script for CS6903-Project-One-python."""
 import click
 
-from cs6903_project_one_python import __version__
-from cs6903_project_one_python import vigenere
+from cs6903_project_one_python import __version__, vigenere
+
 
 @click.group()
-def cli():
-    """CS6903 Project One - CLI"""
+@click.version_option(__version__)
+def cli() -> None:
+    """CS6903 Project One - CLI."""
     pass
+
 
 @cli.command()
 @click.option("--text", type=str, prompt=True)
