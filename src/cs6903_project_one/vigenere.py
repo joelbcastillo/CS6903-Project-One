@@ -1,6 +1,7 @@
 """Vigenere - Poly-Alphabetic Substitution Cipher."""
 
 from cs6903_project_one.constants import MESSAGE_SPACE
+from cs6903_project_one.exceptions import InvalidModeException
 
 
 def encrypt(text: str, key: str) -> str:
@@ -41,6 +42,9 @@ def shift_message(text: str, key: str, mode: str) -> str:
 
     Returns:
         str: The shifted string.
+
+    Raises:
+        InvalidModeException: When the mode is not in (encrypt, decrypt)
     """
     shifted_string = []  # Stores the shifted (encrypted / decrypted) string
 
@@ -53,8 +57,9 @@ def shift_message(text: str, key: str, mode: str) -> str:
                 num += MESSAGE_SPACE.find(key[key_ndx])
             elif mode == "decrypt":
                 num -= MESSAGE_SPACE.find(key[key_ndx])
+            else:
+                raise InvalidModeException(mode)
             num %= len(MESSAGE_SPACE)
-            print(f"New Num: {num}")
 
             shifted_string.append(MESSAGE_SPACE[num])
 

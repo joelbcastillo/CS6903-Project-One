@@ -74,7 +74,7 @@ branch = true
 source = ["cs6903_project_one"]
 
 [tool.coverage.report]
-fail_under = 100
+fail_under = 50
 exclude_lines = [
   "pragma: no cover",
   "def __repr__",

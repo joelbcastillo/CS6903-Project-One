@@ -16,7 +16,6 @@ def cli() -> int:
 @click.option("--key", type=str, prompt=True)
 def encrypt(text: str, key: str) -> int:
     """Encrypt a string passed in on the CLI."""
-    print(key)
     click.echo(vigenere.encrypt(text, key))
     return 0
 
@@ -25,7 +24,7 @@ def encrypt(text: str, key: str) -> int:
 @click.option("--text", type=str, prompt=True)
 @click.option("--key", type=str, prompt=True)
 def decrypt(text: str, key: str) -> int:
-    """Encrypt a string passed in on the CLI."""
+    """Decrypt a string passed in on the CLI."""
     click.echo(vigenere.decrypt(text, key))
     return 0
 
