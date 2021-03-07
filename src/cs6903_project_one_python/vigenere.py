@@ -61,5 +61,7 @@ def shift_message(text: str, key: str, mode: str) -> str:
                 key_ndx = 0
         else:
             shifted_string.append(char)
+        print(char)
+        print(shifted_string[-1])
     
     return ''.join(shifted_string)

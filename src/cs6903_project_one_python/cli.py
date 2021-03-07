@@ -10,8 +10,8 @@ def cli():
     pass
 
 @cli.command()
-@click.argument("text", type=str)
-@click.argument("key", type=str)
+@click.option("--text", type=str, prompt=True)
+@click.option("--key", type=str, prompt=True)
 def encrypt(text: str, key: str) -> int:
     """Encrypt a string passed in on the CLI."""
     click.echo(vigenere.encrypt(text, key))
@@ -19,8 +19,8 @@ def encrypt(text: str, key: str) -> int:
 
 
 @cli.command()
-@click.argument("text", type=str)
-@click.argument("key", type=str)
+@click.option("--text", type=str, prompt=True)
+@click.option("--key", type=str, prompt=True)
 def decrypt(text: str, key: str) -> int:
     """Encrypt a string passed in on the CLI."""
     click.echo(vigenere.decrypt(text, key))
