@@ -39,7 +39,7 @@ def vigenere_enc():
             # changes the original of the input string character
             new_position = position + key_character_position
             if new_position > 26:
-                new_position = new_position - 26
+                new_position = new_position - 27
             new_character = alphabet[new_position]
             print ("Current position: ", position, " .Shifting ", key_character_position, " to right. New position: ",new_position) 
             print ("letter: ", letter, " new character: ", new_character)
@@ -88,7 +88,7 @@ def vigenere_dec():
             # changes the original of the input string character
             new_position = position - key_character_position
             if new_position < 0:
-                new_position = new_position + 26
+                new_position = new_position + 27
             new_character = alphabet[new_position]
             dec_string = dec_string + new_character
             print ("Current position: ", position, " .Shifting ", key_character_position, " to left. New position: ",new_position) 
