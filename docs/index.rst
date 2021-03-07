@@ -21,5 +21,3 @@ Indices and tables
    :hidden:
 
    License <license>
-
-

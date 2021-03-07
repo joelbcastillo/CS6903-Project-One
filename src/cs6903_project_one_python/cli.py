@@ -6,11 +6,8 @@ from cs6903_project_one_python import __version__, vigenere
 
 @click.group()
 @click.version_option(__version__)
-def cli(help: bool) -> int:
+def cli() -> int:
     """CS6903 Project One - CLI."""
-    if help:
-        click.echo("Usage: cli [OPTIONS]")
-        return 0
     return 0
 
 
@@ -19,7 +16,8 @@ def cli(help: bool) -> int:
 @click.option("--key", type=str, prompt=True)
 def encrypt(text: str, key: str) -> int:
     """Encrypt a string passed in on the CLI."""
-    click.echo(vigenere.encrypt(text, key))
+    print(key)
+    click.echo(vigenere.encrypt(text, list(key)))
     return 0
 
 

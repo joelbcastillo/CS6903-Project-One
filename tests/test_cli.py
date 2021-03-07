@@ -19,6 +19,7 @@ Commands:
   decrypt  Encrypt a string passed in on the CLI.
   encrypt  Encrypt a string passed in on the CLI."""
 
+
 @pytest.mark.parametrize(
     "options,expected",
     [

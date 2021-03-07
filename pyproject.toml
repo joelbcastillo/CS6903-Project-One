@@ -102,6 +102,7 @@ pycodestyle = ["+*"]
 mccabe = ["+*"]
 "flake8-*" = ["+*"]
 darglint = ["+*"]
+flake8-bandit = ["-S101", "-D400"]
 
 [tool.flakehell.exceptions."tests/"]
 flake8-bandit = ["-S101"]

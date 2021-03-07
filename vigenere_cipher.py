@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 def vigenere_enc():
     alphabet = " abcdefghijklmnopqrstuvwxyz"
     input_string = ""
@@ -41,12 +42,19 @@ def vigenere_enc():
             if new_position > 26:
                 new_position = new_position - 27
             new_character = alphabet[new_position]
-            print ("Current position: ", position, " .Shifting ", key_character_position, " to right. New position: ",new_position) 
-            print ("letter: ", letter, " new character: ", new_character)
+            print(
+                "Current position: ",
+                position,
+                " .Shifting ",
+                key_character_position,
+                " to right. New position: ",
+                new_position,
+            )
+            print("letter: ", letter, " new character: ", new_character)
             enc_string = enc_string + new_character
         else:
             enc_string = enc_string + letter
-    return(enc_string)
+    return enc_string
 
 
 def vigenere_dec():
@@ -91,14 +99,20 @@ def vigenere_dec():
                 new_position = new_position + 27
             new_character = alphabet[new_position]
             dec_string = dec_string + new_character
-            print ("Current position: ", position, " .Shifting ", key_character_position, " to left. New position: ",new_position) 
-            print ("letter: ", letter, " new character: ", new_character)
+            print(
+                "Current position: ",
+                position,
+                " .Shifting ",
+                key_character_position,
+                " to left. New position: ",
+                new_position,
+            )
+            print("letter: ", letter, " new character: ", new_character)
         else:
             dec_string = dec_string + letter
-    return(dec_string)
+    return dec_string
 
 
 # Testing
 print("Ciphertext: ", vigenere_enc())
 print("Original message: ", vigenere_dec())
-
