@@ -3,7 +3,7 @@
 name = "CS6903-Project-One-python"
 version = "0.1.0"
 description = "CS6903 (Spring 2021) - Project One - Cryptanalysis of a Class of Ciphers"
-authors = ["Joel Castillo <joel.castillo@nyu.edu>"]
+authors = ["Joel Castillo <joel.castillo@nyu.edu>", "Gary Zhou <gz"]
 
 readme = "README.md"
 homepage = "https://github.com/joelbcastillo/CS6903-Project-One-python"

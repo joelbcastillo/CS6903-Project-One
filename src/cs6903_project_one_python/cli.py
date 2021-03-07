@@ -6,9 +6,12 @@ from cs6903_project_one_python import __version__, vigenere
 
 @click.group()
 @click.version_option(__version__)
-def cli() -> None:
+def cli(help: bool) -> int:
     """CS6903 Project One - CLI."""
-    pass
+    if help:
+        click.echo("Usage: cli [OPTIONS]")
+        return 0
+    return 0
 
 
 @cli.command()
