@@ -1,9 +1,11 @@
 """Hacks for the Vigénere Cipher."""
 
+from typing import Dict, List
+
 from cs6903_project_one_python.constants import VALID_CHARACTERS_PATTERN
 
 
-def find_repeated_ciphertext_sequences(text: str) -> dict[str, list(int)]:
+def find_repeated_ciphertext_sequences(text: str) -> Dict[str, List[int]]:
     """Find repeated sequences of characters in the provided ciphertext.
 
     Args:
@@ -15,7 +17,7 @@ def find_repeated_ciphertext_sequences(text: str) -> dict[str, list(int)]:
     """
     valid_text = VALID_CHARACTERS_PATTERN.sub("", text)
 
-    sequence_spacings = {}
+    sequence_spacings: Dict[str, List[int]] = {}
 
     for sequence_length in range(3, 6):
         for sequence_start_ndx in range(len(valid_text) - sequence_length):

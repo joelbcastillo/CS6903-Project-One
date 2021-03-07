@@ -17,7 +17,7 @@ def cli() -> int:
 def encrypt(text: str, key: str) -> int:
     """Encrypt a string passed in on the CLI."""
     print(key)
-    click.echo(vigenere.encrypt(text, list(key)))
+    click.echo(vigenere.encrypt(text, key))
     return 0
 
 
