@@ -1,15 +1,15 @@
 
 [tool.poetry]
-name = "CS6903-Project-One-python"
+name = "CS6903-Project-One"
 version = "0.1.0"
 description = "CS6903 (Spring 2021) - Project One - Cryptanalysis of a Class of Ciphers"
 authors = ["Joel Castillo <joel.castillo@nyu.edu>", "Gary Zhou <gz"]
 
 readme = "README.md"
-homepage = "https://github.com/joelbcastillo/CS6903-Project-One-python"
-repository = "https://github.com/joelbcastillo/CS6903-Project-One-python"
-documentation = "https://CS6903-Project-One-python.readthedocs.io"
-keywords = ["CS6903-Project-One-python"]
+homepage = "https://github.com/joelbcastillo/CS6903-Project-One"
+repository = "https://github.com/joelbcastillo/CS6903-Project-One"
+documentation = "https://CS6903-Project-One.readthedocs.io"
+keywords = ["CS6903-Project-One"]
 classifiers=[
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
@@ -26,12 +26,12 @@ classifiers=[
 
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/joelbcastillo/CS6903-Project-One-python/issues"
+"Bug Tracker" = "https://github.com/joelbcastillo/CS6903-Project-One/issues"
 
 
 
 [tool.poetry.scripts]
-cli = 'cs6903_project_one_python.cli:cli'
+cli = 'cs6903_project_one.cli:cli'
 
 
 [tool.poetry.dependencies]
@@ -71,7 +71,7 @@ source = ["src", "*/site-packages"]
 
 [tool.coverage.run]
 branch = true
-source = ["cs6903_project_one_python"]
+source = ["cs6903_project_one"]
 
 [tool.coverage.report]
 fail_under = 100
@@ -106,7 +106,7 @@ darglint = ["+*"]
 [tool.flakehell.exceptions."tests/"]
 flake8-bandit = ["-S101"]
 
-[tool.flakehell.exceptions."src/cs6903_project_one_python/"]
+[tool.flakehell.exceptions."src/cs6903_project_one/"]
 flake8-docstrings = ["-D400", "-D205"]
 
 [tool.flakehell.exceptions."vigenere_cipher.py"]

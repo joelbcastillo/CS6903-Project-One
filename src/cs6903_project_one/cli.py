@@ -1,7 +1,7 @@
-"""Console script for CS6903-Project-One-python."""
+"""Console script for CS6903-Project-One."""
 import click
 
-from cs6903_project_one_python import __version__, vigenere
+from cs6903_project_one import __version__, vigenere
 
 
 @click.group()

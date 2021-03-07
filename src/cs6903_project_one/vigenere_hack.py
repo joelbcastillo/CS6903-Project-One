@@ -2,7 +2,7 @@
 
 from typing import Dict, List
 
-from cs6903_project_one_python.constants import VALID_CHARACTERS_PATTERN
+from cs6903_project_one.constants import VALID_CHARACTERS_PATTERN
 
 
 def find_repeated_ciphertext_sequences(text: str) -> Dict[str, List[int]]:

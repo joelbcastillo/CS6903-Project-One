@@ -18,7 +18,7 @@ DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
 COVERAGE_FILE = ROOT_DIR.joinpath(".coverage")
 COVERAGE_DIR = ROOT_DIR.joinpath("htmlcov")
 COVERAGE_REPORT = COVERAGE_DIR.joinpath("index.html")
-SOURCE_DIR = ROOT_DIR.joinpath("src/cs6903_project_one_python")
+SOURCE_DIR = ROOT_DIR.joinpath("src/cs6903_project_one")
 TEST_DIR = ROOT_DIR.joinpath("tests")
 PYTHON_TARGETS = [
     SOURCE_DIR,

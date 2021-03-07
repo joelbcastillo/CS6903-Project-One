@@ -11,12 +11,12 @@
 # relative to the documentation root, use os.path.abspath to make it
 # absolute, like shown here.
 #
-import cs6903_project_one_python
+import cs6903_project_one
 
 # -- Project information -----------------------------------------------------
 
 # General information about the project.
-project = "CS6903-Project-One-python"
+project = "CS6903-Project-One"
 copyright = "2021, Joel Castillo"  # noqa: A001
 author = "Joel Castillo"
 # The version info for the project you're documenting, acts as replacement
@@ -24,9 +24,9 @@ author = "Joel Castillo"
 # the built documents.
 #
 # The short X.Y version.
-version = cs6903_project_one_python.__version__
+version = cs6903_project_one.__version__
 # The full version, including alpha/beta/rc tags.
-release = cs6903_project_one_python.__version__
+release = cs6903_project_one.__version__
 
 # -- General configuration ---------------------------------------------------
 
@@ -61,7 +61,7 @@ html_theme = "alabaster"
 # documentation.
 html_theme_options = {
     "github_user": "joelbcastillo",
-    "github_repo": "CS6903-Project-One-python",
+    "github_repo": "CS6903-Project-One",
     "github_banner": True,
     "show_related": False,
     "fixed_sidebar": True,

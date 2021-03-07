@@ -1,6 +1,6 @@
 """Vigenere - Poly-Alphabetic Substitution Cipher."""
 
-from cs6903_project_one_python.constants import MESSAGE_SPACE
+from cs6903_project_one.constants import MESSAGE_SPACE
 
 
 def encrypt(text: str, key: str) -> str:

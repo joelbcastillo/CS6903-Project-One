@@ -1,5 +1,5 @@
-"""Tests for `cs6903_project_one_python` module."""
-from cs6903_project_one_python import vigenere
+"""Tests for `cs6903_project_one` module."""
+from cs6903_project_one import vigenere
 
 
 def test_encrypt() -> None:

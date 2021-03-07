@@ -1,11 +1,11 @@
-"""Tests for `cs6903_project_one_python`.cli module."""
+"""Tests for `cs6903_project_one`.cli module."""
 from typing import List
 
 import pytest
 from click.testing import CliRunner
 
-import cs6903_project_one_python
-from cs6903_project_one_python import cli
+import cs6903_project_one
+from cs6903_project_one import cli
 
 USAGE = """Usage: cli [OPTIONS] COMMAND [ARGS]...
 
@@ -25,7 +25,7 @@ Commands:
     [
         ([], USAGE),
         (["--help"], USAGE),
-        (["--version"], f"cli, version { cs6903_project_one_python.__version__ }\n"),
+        (["--version"], f"cli, version { cs6903_project_one.__version__ }\n"),
     ],
 )
 def test_command_line_interface(options: List[str], expected: str) -> None:

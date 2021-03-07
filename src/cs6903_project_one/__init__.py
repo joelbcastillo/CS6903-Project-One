@@ -1,4 +1,4 @@
-"""Top-level package for CS6903-Project-One-python."""
+"""Top-level package for CS6903-Project-One."""
 
 __author__ = """Joel Castillo"""
 __email__ = "joel.castillo@nyu.edu"

@@ -11,5 +11,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - First release on PyPI.
 
-[Unreleased]: https://github.com/joelbcastillo/CS6903-Project-One-python/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/joelbcastillo/CS6903-Project-One-python/compare/releases/tag/v0.1.0
+[Unreleased]: https://github.com/joelbcastillo/CS6903-Project-One/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/joelbcastillo/CS6903-Project-One/compare/releases/tag/v0.1.0

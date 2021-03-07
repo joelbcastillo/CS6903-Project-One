@@ -8,13 +8,13 @@ Installation
 Stable release
 --------------
 
-To install CS6903-Project-One-python, run this command in your terminal:
+To install CS6903-Project-One, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install CS6903-Project-One-python
+    $ pip install CS6903-Project-One
 
-This is the preferred method to install CS6903-Project-One-python, as it will always install the most recent stable release.
+This is the preferred method to install CS6903-Project-One, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.

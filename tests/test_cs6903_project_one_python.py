@@ -1,15 +1,15 @@
-"""Tests for `cs6903_project_one_python` module."""
+"""Tests for `cs6903_project_one` module."""
 from typing import Generator
 
 import pytest
 
-import cs6903_project_one_python
+import cs6903_project_one
 
 
 @pytest.fixture
 def version() -> Generator[str, None, None]:
     """Sample pytest fixture."""
-    yield cs6903_project_one_python.__version__
+    yield cs6903_project_one.__version__
 
 
 def test_version(version: str) -> None:
