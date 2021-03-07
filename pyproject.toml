@@ -109,6 +109,13 @@ flake8-bandit = ["-S101"]
 [tool.flakehell.exceptions."src/cs6903_project_one_python/"]
 flake8-docstrings = ["-D400", "-D205"]
 
+[tool.flakehell.exceptions."vigenere_cipher.py"]
+pyflakes = ["-*"]
+pycodestyle = ["-*"]
+mccabe = ["-*"]
+"flake8-*" = ["-*"]
+darglint = ["-*"]
+
 
 [tool.isort]
 multi_line_output = 3
