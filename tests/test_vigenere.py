@@ -1,4 +1,4 @@
-"""Tests for `cs6903_project_one` module."""
+"""Tests for `cs6903_project_one.vigenere` module."""
 import pytest
 
 from cs6903_project_one import vigenere

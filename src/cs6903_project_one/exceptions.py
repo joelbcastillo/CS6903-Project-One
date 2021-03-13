@@ -13,6 +13,6 @@ class InvalidModeException(Exception):
         Args:
             mode (str): The invalid mode string passed in.
         """
-        super(InvalidModeException, self).__init__(
+        super().__init__(  # type: ignore
             f"Invalid Mode: {mode}. Mode must be one of (encrypt, decrypt)."
         )

@@ -44,7 +44,7 @@ def shift_message(text: str, key: str, mode: str) -> str:
         str: The shifted string.
 
     Raises:
-        InvalidModeException: When the mode is not in (encrypt, decrypt)
+        InvalidModeException: When the mode is not in (encrypt, decrypt).
     """
     shifted_string = []  # Stores the shifted (encrypted / decrypted) string
 

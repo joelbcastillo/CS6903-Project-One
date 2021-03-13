@@ -16,8 +16,9 @@ Options:
   --help     Show this message and exit.
 
 Commands:
-  decrypt  Decrypt a string passed in on the CLI.
-  encrypt  Encrypt a string passed in on the CLI."""
+  cs6903-encrypt  Encrypt a string passed in on the CLI using the CS6903...
+  decrypt         Decrypt a string passed in on the CLI.
+  encrypt         Encrypt a string passed in on the CLI."""
 
 
 @pytest.mark.parametrize(
@@ -60,5 +61,6 @@ def test_decrypt_command_line_interface(command: str, expected: str) -> None:
     """Test the decrypt CLI."""
     runner = CliRunner()
     result = runner.invoke(cli.cli, command)
+    print(result)
     assert result.exit_code == 0
     assert expected in result.output

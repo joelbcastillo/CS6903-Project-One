@@ -65,6 +65,7 @@ xdoctest = "^0.15.2"
 coverage = {version = "^5.3", extras = ["toml"]}
 pytest-cov = "^2.10.1"
 watchdog = {version = "^1.0.2", extras = ["watchmedo"]}
+pylint = "^2.7.2"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -97,11 +98,13 @@ show_source = true
 docstring-convention = "google"
 
 [tool.flakehell.plugins]
-pyflakes = ["+*"]
-pycodestyle = ["+*"]
+pyflakes = ["+*", "-S311", "-E501", "-W503", "-E203"]
+pycodestyle = ["+*", "-S311", "-E501", "-W503", "-E203"]
 mccabe = ["+*"]
-"flake8-*" = ["+*"]
+"flake8-*" = ["+*", "-S311", "-E501", "-W503", "-E203"]
+flake8-bandit = ["+*", "-S311", "-E501", "-W503", "-E203"]
 darglint = ["+*"]
+pylint = ["-*", "-E501", "-W503", "-E203"]
 
 [tool.flakehell.exceptions."tests/"]
 flake8-bandit = ["-S101"]
@@ -116,6 +119,12 @@ mccabe = ["-*"]
 "flake8-*" = ["-*"]
 darglint = ["-*"]
 
+[tool.flakehell.exceptions."proj1_test2_encryption.py"]
+pyflakes = ["-*"]
+pycodestyle = ["-*"]
+mccabe = ["-*"]
+"flake8-*" = ["-*"]
+darglint = ["-*"]
 
 [tool.isort]
 multi_line_output = 3
