@@ -1,8 +1,11 @@
 """Hacks for the Vigénere Cipher."""
 
+import itertools
 from typing import Any, Dict, List, Optional, Tuple
 
 from cs6903_project_one.constants import VALID_CHARACTERS_PATTERN
+from cs6903_project_one.vigenere import decrypt
+from cs6903_project_one.freqency_analysis import frequency_match_score
 
 
 def get_item_at_index_one(items: Any) -> Any:
@@ -164,7 +167,7 @@ def get_nth_subkey_letters(nth: int, key_length: int, message: str) -> str:
     Args:
         nth (int): Index to return for every key_length set of letters.
         key_length (int): Length of the key.
-        message (str): THe message
+        message (str): The message
 
     Returns:
         str: The string of the nth letters
@@ -181,14 +184,41 @@ def get_nth_subkey_letters(nth: int, key_length: int, message: str) -> str:
     return "".join(letters)
 
 
-def key_length_hack(ciphertext: str, key_length: int) -> Optional[str]:
+def key_length_hack(text: str, key_length: int) -> Optional[str]:
     """Attempt to brute force the key based on key length and frequency analysis.
 
     Args:
-        ciphertext (str): The ciphertext
+        text (str): The ciphertext
         key_length (int): The expected length of the key.
 
     Returns:
         Optional(str): The decrypted text.
     """
+    # Create list to store nested list of frequency scores
+    all_frequency_scores = []
+    for i in range(1, key_length + 1):
+        nth_letter = get_nth_subkey_letters(i, key_length, text)
+
+        frequency_scores = []
+        for key in LETTERS:
+            decrypted_text = decrypt(key, nth_letter)
+            # Create key_score_tuple to store key and match score
+            key_score_tuple = (key, frequency_match_score(decrypted_text))
+            frequency_scores.append(key_score_tuple)
+        # Sort by score
+        frequency_scores.sort(key=get_item_at_index_one, reverse=True)
+
+        all_frequency_scores.append(frequency_scores[:4])
+
+    for indexes in itertools.product(range(4), repeat=key_length):
+        # Create attempt key from letters in all_frequency_scores
+        key = ''
+        for i in range(key_length):
+            key += all_frequency_scores[i][indexes[i]][0]
+
+        decrypted_text = decrypt(key, text)
+
+        if is_english(decrypted_text):
+            pass
+
     return None
