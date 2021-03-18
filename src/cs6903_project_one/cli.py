@@ -1,7 +1,7 @@
 """Console script for CS6903-Project-One."""
 import click
 
-from cs6903_project_one import __version__, cs6903_custom_cipher, vigenere
+from cs6903_project_one import __version__, cs6903_custom_cipher, vigenere, vigenere_hack
 
 
 @click.group()
@@ -36,6 +36,22 @@ def cs6903_encrypt(text: str, key: str, random_seed: int) -> int:
 def decrypt(text: str, key: str) -> int:
     """Decrypt a string passed in on the CLI."""
     click.echo(vigenere.decrypt(text, key))
+    return 0
+
+@cli.command()
+@click.prompt("Enter the ciphertext:", type=str)
+def test_one(ciphertext: str) -> int:
+    """Attempt to decrypt ciphertext using Kasiski examination + known plaintext attack."""
+    plaintext = vigenere_hack.hack_vigenere(ciphertext, 'test_one')
+    click.echo(f"My plaintext guess is: {plaintext}")
+    return 0
+
+@cli.command()
+@click.prompt("Enter the ciphertext:", type=str)
+def test_two(ciphertext: str) -> int:
+    """Attempt to decrypt ciphertext using Kasiski examination + brute force."""
+    plaintext = vigenere_hack.hack_vigenere(ciphertext, 'test_two')
+    click.echo(f"My plaintext guess is: {plaintext}")
     return 0
 
 

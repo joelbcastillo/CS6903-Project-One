@@ -1,5 +1,3 @@
-
-
 import vigenereCipher
 import difflib
 
@@ -51,7 +49,7 @@ def getPlaintext(ciphertext,key):
                     Plaintext.append(word)
                     is_word = True
                     break
-        
+
 #        counter += 1 if not is_word else counter += len(Plaintext[-1])
             #if is_word:
             #    counter += len(Plaintext[-1])

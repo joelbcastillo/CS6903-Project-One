@@ -3,9 +3,10 @@
 import itertools
 from typing import Any, Dict, List, Optional, Tuple
 
-from cs6903_project_one.constants import VALID_CHARACTERS_PATTERN
+from cs6903_project_one.constants import MAX_KEY_LENGTH, NUM_MOST_FREQ_LETTERS, PLAINTEXT_DICTIONARY_ONE, VALID_CHARACTERS_PATTERN
 from cs6903_project_one.vigenere import decrypt
-from cs6903_project_one.freqency_analysis import frequency_match_score
+from cs6903_project_one.frequency_analysis import frequency_match_score
+from difflib import SequenceMatcher
 
 
 def get_item_at_index_one(items: Any) -> Any:
@@ -57,7 +58,7 @@ def find_repeated_ciphertext_sequences(text: str) -> Dict[str, List[int]]:
     return sequence_spacings
 
 
-def get_useful_factors(num: int, max_key_length: int = 16) -> List[int]:
+def get_useful_factors(num: int, max_key_length: int = MAX_KEY_LENGTH) -> List[int]:
     """Return a list of useful factors of num.
 
     Useful is defined as 1 < x < max_key_length + 1.
@@ -68,7 +69,7 @@ def get_useful_factors(num: int, max_key_length: int = 16) -> List[int]:
 
     Args:
         num (int): Number to find the useful factors of.
-        max_key_length (int): Maximum length of the key for the cipher. Defaults to 16.
+        max_key_length (int): Maximum length of the key for the cipher. Defaults to MAX_KEY_LENGTH.
 
     Returns:
         List[int]: List of useful factors
@@ -94,7 +95,7 @@ def get_useful_factors(num: int, max_key_length: int = 16) -> List[int]:
 
 
 def get_common_factors(
-    sequence_factors: Dict[str, List[int]], max_key_length: int = 16
+    sequence_factors: Dict[str, List[int]], max_key_length: int = MAX_KEY_LENGTH
 ) -> List[Tuple[int, int]]:
     """Return a sorted list of the most common factors (which provides the most likely key length).
 
@@ -102,7 +103,7 @@ def get_common_factors(
         sequence_factors (Dict[str, List[int]]): A dictionary containing repeated sequences in the
                                                  ciphertext and the most common factors of
                                                  the distances between the sequences.
-        max_key_length (int): Maximum length of the key for the cipher. Defaults to 16.
+        max_key_length (int): Maximum length of the key for the cipher. Defaults to MAX_KEY_LENGTH.
 
     Returns:
         List[Tuple[int, int]]: A list of the most common sequences spacings factors and
@@ -184,7 +185,7 @@ def get_nth_subkey_letters(nth: int, key_length: int, message: str) -> str:
     return "".join(letters)
 
 
-def key_length_hack(text: str, key_length: int) -> Optional[str]:
+def key_length_hack_test_one(text: str, key_length: int) -> Optional[str]:
     """Attempt to brute force the key based on key length and frequency analysis.
 
     Args:
@@ -208,9 +209,9 @@ def key_length_hack(text: str, key_length: int) -> Optional[str]:
         # Sort by score
         frequency_scores.sort(key=get_item_at_index_one, reverse=True)
 
-        all_frequency_scores.append(frequency_scores[:4])
+        all_frequency_scores.append(frequency_scores[:NUM_MOST_FREQ_LETTERS])
 
-    for indexes in itertools.product(range(4), repeat=key_length):
+    for indexes in itertools.product(range(NUM_MOST_FREQ_LETTERS), repeat=key_length):
         # Create attempt key from letters in all_frequency_scores
         key = ''
         for i in range(key_length):
@@ -218,7 +219,37 @@ def key_length_hack(text: str, key_length: int) -> Optional[str]:
 
         decrypted_text = decrypt(key, text)
 
-        if is_english(decrypted_text):
-            pass
+        for word in PLAINTEXT_DICTIONARY_ONE:
+            if SequenceMatcher(None, word[:key_length], decryptedText).ratio() > .7:
+                return word
 
     return None
+
+def hack_vigenere(text: str, test_id: str) -> Optional[str]:
+    """Attempt to determine
+
+    Args:
+        text (str): The encrypted text we are trying to hack.
+        test_id (str): Specify whether using test one (known plaintext) or test two (dictionary attack)
+
+    Returns:
+        Optional[str, None]: The decrypted plain text.
+    """
+    all_likely_key_lengths = kasiski_examination(text)
+    decrypted_text = None
+
+    if test_id == "test_one":
+        for key_length in all_likely_key_lengths:
+
+            decrypted_text = key_length_hack_test_one(text, key_length)
+            if decrypted_text != None:
+                break
+
+    if decrypted_text == None:
+        for key_length in range(1, MAX_KEY_LENGTH + 1):
+            if key_length not in all_likely_key_lengths:
+                decrypted_text = key_length_hack_test_one(text, key_length)
+                if decrypted_text != None:
+                    break
+
+    return decrypted_text

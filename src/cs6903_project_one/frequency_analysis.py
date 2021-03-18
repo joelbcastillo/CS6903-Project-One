@@ -1,6 +1,10 @@
 """Frequency Analysis for the Vigénere Cipher."""
 
+from typing import Any, Dict
+
 from cs6903_project_one.constants import LETTERS, LETTER_COUNT_DICT
+
+DICTIONARY_LETTERS = 'ESIROTNCLAUPDMHBYWFVGZKXQJ'
 
 def get_item_at_index_zero(items: Any) -> Any:
     """Return the item at the specified index from the iterable.

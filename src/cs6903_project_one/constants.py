@@ -2,6 +2,8 @@
 
 import re
 
+NUM_MOST_FREQ_LETTERS = 4
+MAX_KEY_LENGTH = 24
 MESSAGE_SPACE = " abcdefghijklmnopqrstuvwxyz"
 CIPHERTEXT_SPACE = MESSAGE_SPACE
 KEY_SPACE = [
