@@ -3,7 +3,7 @@
 import itertools
 from typing import Any, Dict, List, Optional, Tuple
 
-from cs6903_project_one.constants import MAX_KEY_LENGTH, NUM_MOST_FREQ_LETTERS, PLAINTEXT_DICTIONARY_ONE, VALID_CHARACTERS_PATTERN
+from cs6903_project_one.constants import MESSAGE_SPACE, MAX_KEY_LENGTH, NUM_MOST_FREQ_LETTERS, PLAINTEXT_DICTIONARY_ONE, VALID_CHARACTERS_PATTERN
 from cs6903_project_one.vigenere import decrypt
 from cs6903_project_one.frequency_analysis import frequency_match_score
 from difflib import SequenceMatcher
@@ -33,22 +33,20 @@ def find_repeated_ciphertext_sequences(text: str) -> Dict[str, List[int]]:
         dict(str, list(int)): A dictionary with the sequence and a list of the
                               distances between each occurrence of the sequence.
     """
-    valid_text = VALID_CHARACTERS_PATTERN.sub("", text)
-
     sequence_spacings: Dict[str, List[int]] = {}
 
     for sequence_length in range(3, 6):
-        for sequence_start_ndx in range(len(valid_text) - sequence_length):
+        for sequence_start_ndx in range(len(text) - sequence_length):
             sequence_end_ndx = sequence_start_ndx + sequence_length
-            sequence = valid_text[sequence_start_ndx:sequence_end_ndx]
+            sequence = text[sequence_start_ndx:sequence_end_ndx]
 
             for current_character_ndx in range(
-                sequence_start_ndx + sequence_length, len(valid_text) - sequence_length
+                sequence_start_ndx + sequence_length, len(text) - sequence_length
             ):
 
                 next_sequence_ndx = current_character_ndx + sequence_length
 
-                if valid_text[current_character_ndx:next_sequence_ndx] == sequence:
+                if text[current_character_ndx:next_sequence_ndx] == sequence:
                     if sequence not in sequence_spacings:
                         sequence_spacings[sequence] = []
 
@@ -124,7 +122,7 @@ def get_common_factors(
     factors_by_frequency = []
     for factor in factor_counts:
         if factor <= max_key_length:
-            factors_by_frequency.append(factor, factor_counts[factor])
+            factors_by_frequency.append((factor, factor_counts[factor]))
 
     # Sort list of tuples by the frequency of occurence
     factors_by_frequency.sort(key=get_item_at_index_one, reverse=True)
@@ -174,9 +172,9 @@ def get_nth_subkey_letters(nth: int, key_length: int, message: str) -> str:
         str: The string of the nth letters
     """
     # Remove non-valid characters from the message
-    message = VALID_CHARACTERS_PATTERN.sub("", message)
+    # message = VALID_CHARACTERS_PATTERN.sub("", message)
 
-    i = nth + 1
+    i = nth - 1
     letters = []
     while i < len(message):
         letters.append(message[i])
@@ -201,8 +199,8 @@ def key_length_hack_test_one(text: str, key_length: int) -> Optional[str]:
         nth_letter = get_nth_subkey_letters(i, key_length, text)
 
         frequency_scores = []
-        for key in LETTERS:
-            decrypted_text = decrypt(key, nth_letter)
+        for key in MESSAGE_SPACE:
+            decrypted_text = decrypt(nth_letter, key)
             # Create key_score_tuple to store key and match score
             key_score_tuple = (key, frequency_match_score(decrypted_text))
             frequency_scores.append(key_score_tuple)
@@ -211,16 +209,17 @@ def key_length_hack_test_one(text: str, key_length: int) -> Optional[str]:
 
         all_frequency_scores.append(frequency_scores[:NUM_MOST_FREQ_LETTERS])
 
+    key_length = min(key_length, 4)
     for indexes in itertools.product(range(NUM_MOST_FREQ_LETTERS), repeat=key_length):
         # Create attempt key from letters in all_frequency_scores
         key = ''
         for i in range(key_length):
             key += all_frequency_scores[i][indexes[i]][0]
 
-        decrypted_text = decrypt(key, text)
+        decrypted_text = decrypt(text[:key_length], key)
 
         for word in PLAINTEXT_DICTIONARY_ONE:
-            if SequenceMatcher(None, word[:key_length], decryptedText).ratio() > .7:
+            if SequenceMatcher(None, word[:key_length], decrypted_text).ratio() > .7:
                 return word
 
     return None

@@ -2,9 +2,7 @@
 
 from typing import Any, Dict
 
-from cs6903_project_one.constants import LETTERS, LETTER_COUNT_DICT
-
-DICTIONARY_LETTERS = 'ESIROTNCLAUPDMHBYWFVGZKXQJ'
+from cs6903_project_one.constants import DICTIONARY_LETTER_FREQUENCY, MESSAGE_SPACE, LETTER_COUNT_DICT
 
 def get_item_at_index_zero(items: Any) -> Any:
     """Return the item at the specified index from the iterable.
@@ -20,11 +18,11 @@ def get_item_at_index_zero(items: Any) -> Any:
     return items[0]
 
 def get_letter_count(message: str) -> Dict[str, int]:
+    letter_count_dict = LETTER_COUNT_DICT.copy()
     for letter in message:
-        if letter in LETTERS:
-            LETTER_COUNT_DICT[letter] += 1
-
-    return LETTER_COUNT_DICT
+        if letter in MESSAGE_SPACE:
+            letter_count_dict[letter] += 1
+    return letter_count_dict
 
 def get_frequency_order(message: str) -> str:
     """ Return a string of letters ordered by frequency of occurence in the message.
@@ -40,15 +38,15 @@ def get_frequency_order(message: str) -> str:
 
     # Create dictionary with key being frequency count and value being letter
     frequency_count_dict = {}
-    for letter in LETTERS:
+    for letter in MESSAGE_SPACE:
         if letter_count_dict[letter] not in frequency_count_dict:
             frequency_count_dict[letter_count_dict[letter]] = [letter]
         else:
             frequency_count_dict[letter_count_dict[letter]].append(letter)
 
-    # Sort list of letters in reverse "ETAOIN" order and convert into a string
+    # Sort list of letters in reverse DICTIONARY_LETTER_FREQUENCY order and convert into a string
     for frequency in frequency_count_dict:
-        frequency_count_dict[frequency].sort(key=ETAOIN.find, reverse=True)
+        frequency_count_dict[frequency].sort(key=DICTIONARY_LETTER_FREQUENCY.find, reverse=True)
         frequency_count_dict[frequency] = ''.join(frequency_count_dict[frequency])
 
     # Convert the frequency_count_dict into a tuple and sort
@@ -75,12 +73,12 @@ def frequency_match_score(message: str) -> int:
     frequency_ordered_string = get_frequency_order(message)
 
     score = 0
-    for common_letter in ETAOIN[:6]:
+    for common_letter in DICTIONARY_LETTER_FREQUENCY[:6]:
         if common_letter in frequency_ordered_string[:6]:
             score += 1
 
-    for least_common_letter in ETAOIN[-6:]:
-        if least_common_letter in frequnecy_ordered_string[-6:]:
+    for least_common_letter in DICTIONARY_LETTER_FREQUENCY[-6:]:
+        if least_common_letter in frequency_ordered_string[-6:]:
             score += 1
 
     return score
