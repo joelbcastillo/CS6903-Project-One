@@ -1,6 +1,7 @@
 """Hacks for the Vigénere Cipher."""
 
 import itertools
+import time
 from difflib import SequenceMatcher
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -11,6 +12,7 @@ from cs6903_project_one.constants import (
     PLAINTEXT_DICTIONARY_ONE,
     PLAINTEXT_DICTIONARY_TWO,
 )
+from cs6903_project_one.detect_english import is_english
 from cs6903_project_one.frequency_analysis import frequency_match_score
 from cs6903_project_one.vigenere import decrypt
 
@@ -276,6 +278,47 @@ def key_length_hack_test_two(text: str, key: str, key_length: int) -> Optional[s
     return plaintext
 
 
+def key_length_hack_test_two_kasiski(text: str, key_length: int) -> Optional[str]:
+    """Attempt to brute force the key based on key length and frequency analysis.
+
+    Args:
+        text (str): The ciphertext
+        key_length (int): The expected length of the key.
+
+    Returns:
+        Optional(str): The decrypted text.
+    """
+    # Create list to store nested list of frequency scores
+    all_frequency_scores = []
+    for i in range(1, key_length + 1):
+        nth_letter = get_nth_subkey_letters(i, key_length, text)
+
+        frequency_scores = []
+        for key in MESSAGE_SPACE:
+            decrypted_text = decrypt(nth_letter, key)
+            # Create key_score_tuple to store key and match score
+            key_score_tuple = (key, frequency_match_score(decrypted_text))
+            frequency_scores.append(key_score_tuple)
+        # Sort by score
+        frequency_scores.sort(key=get_item_at_index_one, reverse=True)
+
+        all_frequency_scores.append(frequency_scores[:NUM_MOST_FREQ_LETTERS])
+
+    key_length = min(key_length, 4)
+    for indexes in itertools.product(range(NUM_MOST_FREQ_LETTERS), repeat=key_length):
+        # Create attempt key from letters in all_frequency_scores
+        key = ""
+        for i in range(key_length):
+            key += all_frequency_scores[i][indexes[i]][0]
+
+        decrypted_text = decrypt(text[:key_length], key)
+
+        if is_english(decrypted_text):
+            return decrypted_text
+
+    return None
+
+
 def hack_vigenere(text: str, test_id: str) -> Optional[str]:
     """Attempt to determine
 
@@ -298,6 +341,7 @@ def hack_vigenere(text: str, test_id: str) -> Optional[str]:
                 return decrypted_text
 
     if test_id == "test_two":
+        start = time.time()
         most_likely_plaintext_word_count = 0
         possible_keys = get_possible_keys_for_first_word_test_two(text)
         for key in possible_keys:
@@ -307,14 +351,32 @@ def hack_vigenere(text: str, test_id: str) -> Optional[str]:
             if len(plaintext_test) > most_likely_plaintext_word_count:
                 most_likely_plaintext_word_count = len(plaintext_test)
                 decrypted_text = " ".join(plaintext_test)
+        guess_one = decrypted_text
 
-        if decrypted_text is not None:
-            return decrypted_text
+        guess_two = None
+        end = time.time()
+        if end - start < 175:
+            all_likely_key_lengths = kasiski_examination(text)
+            for key_length in all_likely_key_lengths:
+                decrypted_text = key_length_hack_test_two_kasiski(text, key_length)
+                if decrypted_text is not None:
+                    guess_two = decrypted_text
+
+        if guess_two is not None and guess_one is not None:
+            if len(guess_two.split(" ")) > len(guess_one.split(" ")):
+                return guess_two
+            else:
+                return guess_one
+        else:
+            if guess_two is not None:
+                return guess_two
+            else:
+                return guess_one
 
     if decrypted_text is None:
         for key_length in range(1, MAX_KEY_LENGTH + 1):
             if key_length not in all_likely_key_lengths:
-                decrypted_text = key_length_hack_test_one(text, key_length)
+                decrypted_text = key_length_hack_test_two_kasiski(text, key_length)
                 if decrypted_text is not None:
                     return decrypted_text
 
