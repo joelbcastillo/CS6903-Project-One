@@ -1,12 +1,18 @@
 """Hacks for the Vigénere Cipher."""
 
 import itertools
+from difflib import SequenceMatcher
 from typing import Any, Dict, List, Optional, Tuple
 
-from cs6903_project_one.constants import MESSAGE_SPACE, MAX_KEY_LENGTH, NUM_MOST_FREQ_LETTERS, PLAINTEXT_DICTIONARY_ONE, VALID_CHARACTERS_PATTERN
-from cs6903_project_one.vigenere import decrypt
+from cs6903_project_one.constants import (
+    MAX_KEY_LENGTH,
+    MESSAGE_SPACE,
+    NUM_MOST_FREQ_LETTERS,
+    PLAINTEXT_DICTIONARY_ONE,
+    PLAINTEXT_DICTIONARY_TWO,
+)
 from cs6903_project_one.frequency_analysis import frequency_match_score
-from difflib import SequenceMatcher
+from cs6903_project_one.vigenere import decrypt
 
 
 def get_item_at_index_one(items: Any) -> Any:
@@ -212,17 +218,63 @@ def key_length_hack_test_one(text: str, key_length: int) -> Optional[str]:
     key_length = min(key_length, 4)
     for indexes in itertools.product(range(NUM_MOST_FREQ_LETTERS), repeat=key_length):
         # Create attempt key from letters in all_frequency_scores
-        key = ''
+        key = ""
         for i in range(key_length):
             key += all_frequency_scores[i][indexes[i]][0]
 
         decrypted_text = decrypt(text[:key_length], key)
 
         for word in PLAINTEXT_DICTIONARY_ONE:
-            if SequenceMatcher(None, word[:key_length], decrypted_text).ratio() > .7:
+            if SequenceMatcher(None, word[:key_length], decrypted_text).ratio() > 0.7:
                 return word
 
     return None
+
+
+def get_possible_keys_for_first_word_test_two(text: str) -> Dict[str, str]:
+    """Attempt to decrypt the first word of the ciphertext and generate possible keys.
+
+    Args:
+        text (str): Ciphertext to decrypt
+
+    Returns:
+        Dict[str, str]: Dictionary of possible first words and keys
+    """
+    first_word_key_dict = {}
+    for word in PLAINTEXT_DICTIONARY_TWO:
+        first_word_key_dict[word] = decrypt(text[: len(word)], word)
+    return first_word_key_dict
+
+
+def key_length_hack_test_two(text: str, key: str, key_length: int) -> Optional[str]:
+    """Attempt to brute force the key based on key length and frequency analysis.
+
+    Args:
+        text (str): The ciphertext
+        key (str): The possible key
+        key_length (int): The expected length of the key.
+
+    Returns:
+        Optional(str): The decrypted text.
+    """
+    plaintext = []
+    ctr = 0
+    ciphertext_length = len(text)
+
+    while ctr < ciphertext_length:
+        decrypted_text = decrypt(text[ctr : ctr + key_length], key)
+        words = decrypted_text.split(" ")
+        for decrypted_word in words:
+            for word in PLAINTEXT_DICTIONARY_TWO:
+                word_match_score = SequenceMatcher(
+                    None, decrypted_word.upper(), word.upper()
+                ).ratio()
+                if word_match_score > 0.7:
+                    plaintext.append(word)
+                    break
+        ctr += 1
+    return plaintext
+
 
 def hack_vigenere(text: str, test_id: str) -> Optional[str]:
     """Attempt to determine
@@ -234,21 +286,36 @@ def hack_vigenere(text: str, test_id: str) -> Optional[str]:
     Returns:
         Optional[str, None]: The decrypted plain text.
     """
-    all_likely_key_lengths = kasiski_examination(text)
     decrypted_text = None
 
     if test_id == "test_one":
+        all_likely_key_lengths = kasiski_examination(text)
+
         for key_length in all_likely_key_lengths:
 
             decrypted_text = key_length_hack_test_one(text, key_length)
-            if decrypted_text != None:
-                break
+            if decrypted_text is not None:
+                return decrypted_text
 
-    if decrypted_text == None:
+    if test_id == "test_two":
+        most_likely_plaintext_word_count = 0
+        possible_keys = get_possible_keys_for_first_word_test_two(text)
+        for key in possible_keys:
+            plaintext_test = key_length_hack_test_two(
+                text, possible_keys[key], len(possible_keys[key])
+            )
+            if len(plaintext_test) > most_likely_plaintext_word_count:
+                most_likely_plaintext_word_count = len(plaintext_test)
+                decrypted_text = " ".join(plaintext_test)
+
+        if decrypted_text is not None:
+            return decrypted_text
+
+    if decrypted_text is None:
         for key_length in range(1, MAX_KEY_LENGTH + 1):
             if key_length not in all_likely_key_lengths:
                 decrypted_text = key_length_hack_test_one(text, key_length)
-                if decrypted_text != None:
-                    break
+                if decrypted_text is not None:
+                    return decrypted_text
 
     return decrypted_text
