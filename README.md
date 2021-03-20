@@ -8,7 +8,7 @@ CS6903 Project One Python
 CS6903 (Spring 2021) - Project One - Cryptanalysis of a Class of Ciphers
 
 * GitHub repo: <https://github.com/joelbcastillo/CS6903-Project-One.git>
-* Report - [castillo-chan-zhou-report.pdf](https://github.com/joelbcastillo/CS6903-Project-One/castillo-chan-zhou-report.pdf)
+* Report - [castillo-chan-zhou-report.pdf](https://github.com/joelbcastillo/CS6903-Project-One/blob/main/castillo-chan-zhou-report.pdf)
 * Free software: MIT
 
 Features
