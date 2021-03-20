@@ -92,4 +92,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/
+          asset_path: ./dist/castillo_chan_zhou_decrypt_binary-${{ steps.tag_name.outputs.current_version }}.tar.gz
