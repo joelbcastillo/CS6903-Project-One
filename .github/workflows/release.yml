@@ -5,9 +5,7 @@ on:
     tags:
       - 'v*'
 jobs:
-
   github_release:
-    needs: release
     name: Create Github Release
     runs-on: ubuntu-latest
     steps:
