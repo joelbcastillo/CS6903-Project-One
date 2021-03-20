@@ -3,7 +3,8 @@
 from typing import Any, Dict
 
 from castillo_chan_zhou_decrypt_binary.constants import (
-    DICTIONARY_LETTER_FREQUENCY,
+    DICTIONARY_LETTER_FREQUENCY_TEST_ONE,
+    DICTIONARY_LETTER_FREQUENCY_TEST_TWO,
     LETTER_COUNT_DICT,
     MESSAGE_SPACE,
 )
@@ -40,15 +41,21 @@ def get_letter_count(message: str) -> Dict[str, int]:
     return letter_count_dict
 
 
-def get_frequency_order(message: str) -> str:
+def get_frequency_order(message: str, test_id: str) -> str:
     """Return a string of letters ordered by frequency of occurence in the message.
 
     Args:
         message (str): The message
+        test_id (str): The id of the test being run
 
     Returns:
         str: The string of letters ordered by frequency
     """
+    letter_frequency_list = (
+        DICTIONARY_LETTER_FREQUENCY_TEST_ONE
+        if test_id == "test_one"
+        else DICTIONARY_LETTER_FREQUENCY_TEST_TWO
+    )
     # Create dictionary with key being letter and value being the frequency count
     letter_count_dict = get_letter_count(message)
 
@@ -60,9 +67,9 @@ def get_frequency_order(message: str) -> str:
         else:
             frequency_count_dict[letter_count_dict[letter]].append(letter)
 
-    # Sort list of letters in reverse DICTIONARY_LETTER_FREQUENCY order and convert into a string
+    # Sort list of letters in reverse letter_frequency_list order and convert into a string
     for frequency in frequency_count_dict:
-        frequency_count_dict[frequency].sort(key=DICTIONARY_LETTER_FREQUENCY.find, reverse=True)
+        frequency_count_dict[frequency].sort(key=letter_frequency_list.find, reverse=True)
         frequency_count_dict[frequency] = "".join(frequency_count_dict[frequency])
 
     # Convert the frequency_count_dict into a tuple and sort
@@ -77,24 +84,34 @@ def get_frequency_order(message: str) -> str:
     return "".join(ordered_frequency)
 
 
-def frequency_match_score(message: str) -> int:
+def frequency_match_score(message: str, test_id: str) -> int:
     """Return an integer score for the number of matches in the letter frequency
     compared to the English letter frequency.
 
+    Scores are incremented whenever the most common 6 letters or least common
+    6 letters are also found in the English language frequency list top 6 /
+    lower 6.
+
     Args:
         message (str): The message
+        test_id (str): The id of the test being run
 
     Returns:
         int: The string of letters ordered by frequency
     """
-    frequency_ordered_string = get_frequency_order(message)
+    letter_frequency_list = (
+        DICTIONARY_LETTER_FREQUENCY_TEST_ONE
+        if test_id == "test_one"
+        else DICTIONARY_LETTER_FREQUENCY_TEST_TWO
+    )
+    frequency_ordered_string = get_frequency_order(message, test_id)
 
     score = 0
-    for common_letter in DICTIONARY_LETTER_FREQUENCY[:6]:
+    for common_letter in letter_frequency_list[:6]:
         if common_letter in frequency_ordered_string[:6]:
             score += 1
 
-    for least_common_letter in DICTIONARY_LETTER_FREQUENCY[-6:]:
+    for least_common_letter in letter_frequency_list[-6:]:
         if least_common_letter in frequency_ordered_string[-6:]:
             score += 1
 

@@ -1,14 +1,14 @@
 
 [tool.poetry]
 name = "castillo_chan_zhou_decrypt_binary"
-version = "0.1.0"
+version = "1.0.0"
 description = "CS6903 (Spring 2021) - Project One - Cryptanalysis of a Class of Ciphers"
 authors = ["Joel Castillo <joel.castillo@nyu.edu>", "Gary Zhou <gz"]
 
 readme = "README.md"
-homepage = "https://github.com/joelbcastillo/CS6903-Project-One"
-repository = "https://github.com/joelbcastillo/CS6903-Project-One"
-documentation = "https://github.com/joelbcastillo/CS6903-Project-One/docs"
+homepage = "https://github.com/joelbcastillo/castillo-chan-zhou-decrypt-binary"
+repository = "https://github.com/joelbcastillo/castillo-chan-zhou-decrypt-binary"
+documentation = "https://github.com/joelbcastillo/castillo-chan-zhou-decrypt-binary/docs"
 keywords = ["castillo_chan_zhou_decrypt_binary"]
 classifiers=[
     "Development Status :: 2 - Pre-Alpha",
@@ -25,7 +25,7 @@ classifiers=[
 ]
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/joelbcastillo/CS6903-Project-One/issues"
+"Bug Tracker" = "https://github.com/joelbcastillo/castillo-chan-zhou-decrypt-binary/issues"
 
 [tool.poetry.scripts]
 castillo-chan-zhou-decrypt-binary = 'castillo_chan_zhou_decrypt_binary.cli:cli'

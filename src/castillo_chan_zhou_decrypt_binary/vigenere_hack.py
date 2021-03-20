@@ -43,6 +43,10 @@ def find_repeated_ciphertext_sequences(text: str) -> Dict[str, List[int]]:
     """
     sequence_spacings: Dict[str, List[int]] = {}
 
+    # Look for sequences of length 3, 6 characters that are repeated
+    # This is generally a good amount of characters to find potentially repeated
+    # sequences in the plaintext that were encrypted by the same ciphertext
+    # characters.
     for sequence_length in range(3, 6):
         for sequence_start_ndx in range(len(text) - sequence_length):
             sequence_end_ndx = sequence_start_ndx + sequence_length
@@ -53,7 +57,9 @@ def find_repeated_ciphertext_sequences(text: str) -> Dict[str, List[int]]:
             ):
 
                 next_sequence_ndx = current_character_ndx + sequence_length
-
+                # When a second sequence matching the current sequence is found
+                # store the distance between the beginning of the current sequence
+                # and the beginning of the next occurrence in the dictionary.
                 if text[current_character_ndx:next_sequence_ndx] == sequence:
                     if sequence not in sequence_spacings:
                         sequence_spacings[sequence] = []
@@ -210,7 +216,7 @@ def key_length_hack_test_one(text: str, key_length: int) -> Optional[str]:
         for key in MESSAGE_SPACE:
             decrypted_text = decrypt(nth_letter, key)
             # Create key_score_tuple to store key and match score
-            key_score_tuple = (key, frequency_match_score(decrypted_text))
+            key_score_tuple = (key, frequency_match_score(decrypted_text, "test_one"))
             frequency_scores.append(key_score_tuple)
         # Sort by score
         frequency_scores.sort(key=get_item_at_index_one, reverse=True)
@@ -297,7 +303,7 @@ def key_length_hack_test_two_kasiski(text: str, key_length: int) -> Optional[str
         for key in MESSAGE_SPACE:
             decrypted_text = decrypt(nth_letter, key)
             # Create key_score_tuple to store key and match score
-            key_score_tuple = (key, frequency_match_score(decrypted_text))
+            key_score_tuple = (key, frequency_match_score(decrypted_text, "test_two"))
             frequency_scores.append(key_score_tuple)
         # Sort by score
         frequency_scores.sort(key=get_item_at_index_one, reverse=True)

@@ -4,7 +4,8 @@ import re
 
 NUM_MOST_FREQ_LETTERS = 10
 MAX_KEY_LENGTH = 24
-DICTIONARY_LETTER_FREQUENCY = "esirotnclaupdmhbywfvgzkxqj"
+DICTIONARY_LETTER_FREQUENCY_TEST_ONE = "eisraontlcdugmphybfvzkwjxq"
+DICTIONARY_LETTER_FREQUENCY_TEST_TWO = "esirotnclaupdmhbywfvgzkxqj"
 MESSAGE_SPACE = " abcdefghijklmnopqrstuvwxyz"
 CIPHERTEXT_SPACE = MESSAGE_SPACE
 KEY_SPACE = [
