@@ -1,6 +1,6 @@
 
 [tool.poetry]
-name = "CS6903-Project-One"
+name = "castillo_chan_zhou_decrypt_binary"
 version = "0.1.0"
 description = "CS6903 (Spring 2021) - Project One - Cryptanalysis of a Class of Ciphers"
 authors = ["Joel Castillo <joel.castillo@nyu.edu>", "Gary Zhou <gz"]
@@ -8,8 +8,8 @@ authors = ["Joel Castillo <joel.castillo@nyu.edu>", "Gary Zhou <gz"]
 readme = "README.md"
 homepage = "https://github.com/joelbcastillo/CS6903-Project-One"
 repository = "https://github.com/joelbcastillo/CS6903-Project-One"
-documentation = "https://CS6903-Project-One.readthedocs.io"
-keywords = ["CS6903-Project-One"]
+documentation = "https://github.com/joelbcastillo/CS6903-Project-One/docs"
+keywords = ["castillo_chan_zhou_decrypt_binary"]
 classifiers=[
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
@@ -24,21 +24,15 @@ classifiers=[
     "Programming Language :: Python :: 3.9",
 ]
 
-
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/joelbcastillo/CS6903-Project-One/issues"
 
-
-
 [tool.poetry.scripts]
-cli = 'cs6903_project_one.cli:cli'
-
+castillo-chan-zhou-decrypt-binary = 'castillo_chan_zhou_decrypt_binary.cli:cli'
 
 [tool.poetry.dependencies]
 python = "<3.10,>=3.6.1"
-
 click = "^7.1.2"
-
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.9.3"
@@ -72,7 +66,7 @@ source = ["src", "*/site-packages"]
 
 [tool.coverage.run]
 branch = true
-source = ["cs6903_project_one"]
+source = ["castillo_chan_zhou_decrypt_binary"]
 
 [tool.coverage.report]
 fail_under = 50
@@ -109,22 +103,8 @@ pylint = ["-*", "-E501", "-W503", "-E203"]
 [tool.flakehell.exceptions."tests/"]
 flake8-bandit = ["-S101"]
 
-[tool.flakehell.exceptions."src/cs6903_project_one/"]
+[tool.flakehell.exceptions."src/castillo_chan_zhou_decrypt_binary/"]
 flake8-docstrings = ["-D400", "-D205"]
-
-[tool.flakehell.exceptions."vigenere_cipher.py"]
-pyflakes = ["-*"]
-pycodestyle = ["-*"]
-mccabe = ["-*"]
-"flake8-*" = ["-*"]
-darglint = ["-*"]
-
-[tool.flakehell.exceptions."proj1_test2_encryption.py"]
-pyflakes = ["-*"]
-pycodestyle = ["-*"]
-mccabe = ["-*"]
-"flake8-*" = ["-*"]
-darglint = ["-*"]
 
 [tool.isort]
 multi_line_output = 3

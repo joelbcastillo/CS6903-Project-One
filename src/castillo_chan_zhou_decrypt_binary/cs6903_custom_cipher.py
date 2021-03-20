@@ -2,7 +2,7 @@
 from random import randint
 from typing import Tuple
 
-from cs6903_project_one.constants import MESSAGE_SPACE
+from castillo_chan_zhou_decrypt_binary.constants import MESSAGE_SPACE
 
 
 def encrypt(message: str, key: str) -> str:

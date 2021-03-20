@@ -1,8 +1,8 @@
-"""Tests for `cs6903_project_one.vigenere` module."""
+"""Tests for `castillo_chan_zhou_decrypt_binary.vigenere` module."""
 import pytest
 
-from cs6903_project_one import vigenere
-from cs6903_project_one.exceptions import InvalidModeException
+from castillo_chan_zhou_decrypt_binary import vigenere
+from castillo_chan_zhou_decrypt_binary.exceptions import InvalidModeException
 
 
 @pytest.mark.parametrize(

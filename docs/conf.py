@@ -11,7 +11,7 @@
 # relative to the documentation root, use os.path.abspath to make it
 # absolute, like shown here.
 #
-import cs6903_project_one
+import castillo_chan_zhou_decrypt_binary
 
 # -- Project information -----------------------------------------------------
 
@@ -24,9 +24,9 @@ author = "Joel Castillo"
 # the built documents.
 #
 # The short X.Y version.
-version = cs6903_project_one.__version__
+version = castillo_chan_zhou_decrypt_binary.__version__
 # The full version, including alpha/beta/rc tags.
-release = cs6903_project_one.__version__
+release = castillo_chan_zhou_decrypt_binary.__version__
 
 # -- General configuration ---------------------------------------------------
 

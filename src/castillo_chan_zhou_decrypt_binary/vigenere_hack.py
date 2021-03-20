@@ -5,16 +5,16 @@ import time
 from difflib import SequenceMatcher
 from typing import Any, Dict, List, Optional, Tuple
 
-from cs6903_project_one.constants import (
+from castillo_chan_zhou_decrypt_binary.constants import (
     MAX_KEY_LENGTH,
     MESSAGE_SPACE,
     NUM_MOST_FREQ_LETTERS,
     PLAINTEXT_DICTIONARY_ONE,
     PLAINTEXT_DICTIONARY_TWO,
 )
-from cs6903_project_one.detect_english import is_english
-from cs6903_project_one.frequency_analysis import frequency_match_score
-from cs6903_project_one.vigenere import decrypt
+from castillo_chan_zhou_decrypt_binary.detect_english import is_english
+from castillo_chan_zhou_decrypt_binary.frequency_analysis import frequency_match_score
+from castillo_chan_zhou_decrypt_binary.vigenere import decrypt
 
 
 def get_item_at_index_one(items: Any) -> Any:
@@ -330,6 +330,7 @@ def hack_vigenere(text: str, test_id: str) -> Optional[str]:
         Optional[str, None]: The decrypted plain text.
     """
     decrypted_text = None
+    text = text.lower()
 
     if test_id == "test_one":
         all_likely_key_lengths = kasiski_examination(text)

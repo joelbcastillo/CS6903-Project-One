@@ -4,4 +4,4 @@ Usage
 
 To use CS6903-Project-One in a project::
 
-    import cs6903_project_one
+    import castillo_chan_zhou_decrypt_binary

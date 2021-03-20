@@ -1,11 +1,11 @@
-"""Tests for `cs6903_project_one`.cli module."""
+"""Tests for `castillo_chan_zhou_decrypt_binary`.cli module."""
 from typing import List
 
 import pytest
 from click.testing import CliRunner
 
-import cs6903_project_one
-from cs6903_project_one import cli
+import castillo_chan_zhou_decrypt_binary
+from castillo_chan_zhou_decrypt_binary import cli
 
 USAGE = """Usage: cli [OPTIONS] COMMAND [ARGS]...
 
@@ -26,7 +26,7 @@ Commands:
     [
         ([], USAGE),
         (["--help"], USAGE),
-        (["--version"], f"cli, version { cs6903_project_one.__version__ }\n"),
+        (["--version"], f"cli, version { castillo_chan_zhou_decrypt_binary.__version__ }\n"),
     ],
 )
 def test_command_line_interface(options: List[str], expected: str) -> None:

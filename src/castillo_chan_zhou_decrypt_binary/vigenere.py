@@ -1,7 +1,7 @@
 """Vigenere - Poly-Alphabetic Substitution Cipher."""
 
-from cs6903_project_one.constants import MESSAGE_SPACE
-from cs6903_project_one.exceptions import InvalidModeException
+from castillo_chan_zhou_decrypt_binary.constants import MESSAGE_SPACE
+from castillo_chan_zhou_decrypt_binary.exceptions import InvalidModeException
 
 
 def encrypt(text: str, key: str) -> str:

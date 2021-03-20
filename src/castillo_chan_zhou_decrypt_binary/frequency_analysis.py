@@ -2,7 +2,12 @@
 
 from typing import Any, Dict
 
-from cs6903_project_one.constants import DICTIONARY_LETTER_FREQUENCY, MESSAGE_SPACE, LETTER_COUNT_DICT
+from castillo_chan_zhou_decrypt_binary.constants import (
+    DICTIONARY_LETTER_FREQUENCY,
+    LETTER_COUNT_DICT,
+    MESSAGE_SPACE,
+)
+
 
 def get_item_at_index_zero(items: Any) -> Any:
     """Return the item at the specified index from the iterable.
@@ -17,15 +22,26 @@ def get_item_at_index_zero(items: Any) -> Any:
     """
     return items[0]
 
+
 def get_letter_count(message: str) -> Dict[str, int]:
+    """Get the number of valid letters in the message
+
+    Args:
+        message (str): The message.
+
+    Returns:
+        Dict[str, int]: A dictionary where keys are the letters, and
+                        values are the number of occurrences
+    """
     letter_count_dict = LETTER_COUNT_DICT.copy()
     for letter in message:
         if letter in MESSAGE_SPACE:
             letter_count_dict[letter] += 1
     return letter_count_dict
 
+
 def get_frequency_order(message: str) -> str:
-    """ Return a string of letters ordered by frequency of occurence in the message.
+    """Return a string of letters ordered by frequency of occurence in the message.
 
     Args:
         message (str): The message
@@ -47,7 +63,7 @@ def get_frequency_order(message: str) -> str:
     # Sort list of letters in reverse DICTIONARY_LETTER_FREQUENCY order and convert into a string
     for frequency in frequency_count_dict:
         frequency_count_dict[frequency].sort(key=DICTIONARY_LETTER_FREQUENCY.find, reverse=True)
-        frequency_count_dict[frequency] = ''.join(frequency_count_dict[frequency])
+        frequency_count_dict[frequency] = "".join(frequency_count_dict[frequency])
 
     # Convert the frequency_count_dict into a tuple and sort
     frequency_tuple = list(frequency_count_dict.items())
@@ -58,10 +74,11 @@ def get_frequency_order(message: str) -> str:
     for ft in frequency_tuple:
         ordered_frequency.append(ft[1])
 
-    return ''.join(ordered_frequency)
+    return "".join(ordered_frequency)
+
 
 def frequency_match_score(message: str) -> int:
-    """ Return an integer score for the number of matches in the letter frequency
+    """Return an integer score for the number of matches in the letter frequency
     compared to the English letter frequency.
 
     Args:

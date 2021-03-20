@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from cs6903_project_one.constants import PLAINTEXT_DICTIONARY_TWO
+from castillo_chan_zhou_decrypt_binary.constants import PLAINTEXT_DICTIONARY_TWO
 
 
 def get_english_count(message: str) -> float:
